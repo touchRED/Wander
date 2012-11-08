@@ -1,8 +1,28 @@
 body{
-	margin: 0px;
 	padding: 0px;
+	margin: 0px;
+	background-color: #ccc;
+	overflow: hidden;
+}
+canvas{
+	padding: 0px;
+	margin: 0px;
+	background-color: #ccc;
 }
 
-canvas{
-	border: 1px solid black;
+input[type=text]{
+	position: absolute;
+	margin-top: 35%;
+	margin-left:40%;
+	height: 10%;
+	width: 20%;
+	padding: 10px;
+	outline: none;
+	border: none;
+	color: #fff;
+	border-radius: 6px;
+	background-color: rgba(0,0,0,0.4);
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	font-size: 30px;
+	display:none;
 }
