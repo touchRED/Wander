@@ -10,8 +10,6 @@ app.listen(8080);
 
 function handler (request, response) {
 
-  console.log("working");
-
   request.addListener('end', function () {
     fileServer.serve(request, response); // this will return the correct file
     //console.log(request);
@@ -59,12 +57,18 @@ function handler (request, response) {
 io.set('log level', 1);
 
 io.sockets.on('connection', function (socket) {
-    
-    socket.on('move', function (data) {
 
-        console.log(data);
+  socket.on('chat', function (data) {
         
-        socket.broadcast.emit('moving', data);
+    socket.broadcast.emit('message', data);
     
-    });
+  });
+    
+  socket.on('move', function (data) {
+
+    //setInterval(function(){console.log(data);},5000);
+        
+    socket.broadcast.emit('moving', data);
+    
+  });
 });

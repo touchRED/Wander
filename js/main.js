@@ -10,27 +10,34 @@ var then = Date.now();
 
 var hero = {
 	speed: 400,
-	x:0,
-	y:0,
+	x:-800,
+	y:-195,
 	jspeed: 4
 };
 
 var keyisUp;
 
-var reset = function () {
+/*var reset = function () {
 	hero.x = -800;
 	hero.y = -195;
-};
+};*/
 
 /*var resize = function() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 };*/
 
+var socket = io.connect('http://localhost:8080/');
+
 var render = function () {
 	ctx.drawImage(bgImage, hero.x, hero.y);
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(window.innerWidth/2,282,50,50);
+
+	/*socket.on('moving', function (data){
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(0,0,50,50);
+	});*/
 };
 
 var clear = function (){
@@ -45,6 +52,8 @@ var main = function () {
 	render();
 
 	then = now;
+
+	socket.emit('move', {'x': hero.x, "y": hero.y});
 
 	//console.log(hero.x,",",hero.y);
 };
@@ -94,7 +103,6 @@ var heightCheck = function() {
 
 
 ctx.drawImage(bgImage,0,0);
-reset();
 setInterval(main, 20);
 //window.onresize = resize;
 canvas.width = window.innerWidth;

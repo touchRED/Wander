@@ -5,10 +5,15 @@ var message;
 $('#body').keypress(function(event){
 	if(event.which == 13){
 		message = $('input').val();
-		socket.emit('move', message);
+		socket.emit('chat', message);
 		//console.log(message);
 		$('input').val("");
 		$('input').fadeOut();
+		$('p#said').text(message);
+		$('p#said').fadeIn();
+		setTimeout(function(){
+			$('p#said').fadeOut();
+		},4000);
 	}
 	else{
 		$('input').fadeIn();
@@ -16,7 +21,7 @@ $('#body').keypress(function(event){
 	}
 });
 
-socket.on('moving', function (data){
+socket.on('message', function (data){
 
 	console.log(data);
 

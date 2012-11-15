@@ -1,6 +1,12 @@
+//canvas init
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext("2d");
+
 var keysDown = {};
 
 var height;
+
+var socket = io.connect('http://localhost:8080/');
 
 addEventListener("keydown", function (e) {
 	keysDown[e.keyCode] = true;
@@ -39,7 +45,13 @@ function update(modifier){
 	if (39 in keysDown) { // Player holding right
 	 hero.x -= hero.speed*modifier;
 	}
+
 }
+
+/*socket.on('moving', function (data){
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(0,0,50,50);
+});*/
 
 function onGround(){
 	if(hero.y == -195 || !keyisUp){
@@ -51,10 +63,10 @@ function onGround(){
 }
 
 var jump = function(){
-	for (var i = 40; i >= 0; i -= 0.5) {
-		setInterval(function(){
-			hero.y += i;
-		},1000);
+	for (var i = 100; i >= 0; i -= 0.5) {
+		setTimeout(function(){
+			hero.y -= i;
+		},30);
 	};
 };
 
