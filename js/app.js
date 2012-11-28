@@ -54,7 +54,7 @@ function handler (request, response) {
   }); 
 }*/
 
-io.set('log level', 1);
+io.set('log level', 2);
 
 io.sockets.on('connection', function (socket) {
 

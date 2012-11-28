@@ -29,15 +29,19 @@ var keyisUp;
 
 var socket = io.connect('http://localhost:8080/');
 
+setInterval(function(){
+	io.connect('http://localhost:8080/');
+},30);
+
 var render = function () {
 	ctx.drawImage(bgImage, hero.x, hero.y);
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(window.innerWidth/2,282,50,50);
 
-	/*socket.on('moving', function (data){
+	socket.on('moving', function (data){
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(0,0,50,50);
-	});*/
+	ctx.fillRect(data.x,282,50,50);
+	});
 };
 
 var clear = function (){
@@ -53,7 +57,7 @@ var main = function () {
 
 	then = now;
 
-	socket.emit('move', {'x': hero.x, "y": hero.y});
+	socket.emit('move', {'x': (hero.x * -1) + (window.innerWidth+800), "y": hero.y});
 
 	//console.log(hero.x,",",hero.y);
 };
