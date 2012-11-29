@@ -40,7 +40,8 @@ var render = function () {
 
 	socket.on('moving', function (data){
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(data.x,282,50,50);
+	var square_x = (data.x * -1) + (window.innerWidth+hero.x);
+	ctx.fillRect(square_x,282,50,50);
 	});
 };
 
@@ -57,7 +58,7 @@ var main = function () {
 
 	then = now;
 
-	socket.emit('move', {'x': (hero.x * -1) + (window.innerWidth+800), "y": hero.y});
+	socket.emit('move', {'x': hero.x, "y": hero.y});
 
 	//console.log(hero.x,",",hero.y);
 };

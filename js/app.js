@@ -4,6 +4,23 @@ var app = require('http').createServer(handler)
   , fs = require('fs')
   , stat = require('node-static')
 
+/*var express = require('express')
+  , app = express()
+  , http = require('http')
+  , server = http.createServer(app)
+  , io = require('socket.io').listen(server)
+  , path = require('path')
+  , fs = require('fs')
+  , stat = require('node-static')*/
+
+/*app.listen(process.env.PORT || 8080);
+
+app.get('/', function(req, res){
+  res.sendfile('../index.html');
+});*/
+
+
+
 var fileServer = new stat.Server('./');
 
 app.listen(8080);
@@ -18,43 +35,14 @@ function handler (request, response) {
 
 }
 
+io.configure(function (){
 
-/*function handler (req, res) {
+  io.set('log level', 2);
 
-  var filePath = '.' + req.url;
-  if (filePath == './'){
-    filePath = '../index.html';
-  }
-
-  var extname = path.extname(filePath);
-  var contentType = 'text/html'
-  switch(extname){
-
-    case '.js':
-
-      contentType = 'txt/javascript';
-      break;
-
-    case '.css':
-
-      contentType = 'txt/css';
-      break;
-
-  }
-
-  fs.readFile(filePath,
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html');
-    }
-
-    res.writeHead(200,{ 'Content-Type':contentType});
-    res.end(data);
-  }); 
-}*/
-
-io.set('log level', 2);
+  io.set('authorization', function (handshakeData, callback) {
+    callback(null, true); // error first callback style 
+  });
+});
 
 io.sockets.on('connection', function (socket) {
 
