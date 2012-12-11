@@ -29,21 +29,45 @@ var keyisUp;
 
 var socket = io.connect('http://localhost:8080/');
 
-setInterval(function(){
-	io.connect('http://localhost:8080/');
-},30);
+/*var player = function (data){
+	ctx.fillStyle = "#000000";
+	var sqr_x = (data.x * -1) + (window.innerWidth+hero.x);
+	//ctx.fillRect(sqr_x,282,50,50);
+	//clear();
+}*/
 
 var render = function () {
 	ctx.drawImage(bgImage, hero.x, hero.y);
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(window.innerWidth/2,282,50,50);
 
-	socket.on('moving', function (data){
-	ctx.fillStyle = "#000000";
-	var square_x = (data.x * -1) + (window.innerWidth+hero.x);
+	//socket.on('moving', player);
+	
+	var square_x;
+
+	//console.log(square_x);
+	
 	ctx.fillRect(square_x,282,50,50);
-	});
 };
+
+var player = function (x_spot){
+	var x_pos = x_spot;
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(x_pos,282,50,50);
+}
+
+socket.on('moving', function (data){
+	ctx.fillStyle = "#000000";
+	var sqr_x = (data.x * -1) + (320+hero.x);
+	player(sqr_x);
+	//render.square_x = sqr_x;
+	//ctx.fillRect(sqr_x,282,50,50);
+	//clear();
+});
+
+/*setInterval(function(){
+	console.log(render.square_x);
+},1000)*/
 
 var clear = function (){
 	ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -62,6 +86,10 @@ var main = function () {
 
 	//console.log(hero.x,",",hero.y);
 };
+
+/*setInterval(function(){
+	socket.emit('move', {'x': hero.x, "y": hero.y});
+}, 1);*/
 
 var Collision = function (){
 	if(hero.x >= 615){

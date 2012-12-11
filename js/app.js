@@ -1,8 +1,17 @@
-var app = require('http').createServer(handler)
+/*var app = require('http').createServer(handler)
+  , io = require('socket.io').listen(app)
+  , path = require('path')
+  , fs = require('fs')
+  , stat = require('node-static')*/
+
+var express = require('express')
+  , app = express.createServer()
+  , http = require('http')
   , io = require('socket.io').listen(app)
   , path = require('path')
   , fs = require('fs')
   , stat = require('node-static')
+  , port = process.env.PORT || 8080
 
 /*var express = require('express')
   , app = express()
@@ -13,15 +22,15 @@ var app = require('http').createServer(handler)
   , fs = require('fs')
   , stat = require('node-static')*/
 
-/*app.listen(process.env.PORT || 8080);
+app.listen(port);
 
 app.get('/', function(req, res){
   res.sendfile('../index.html');
-});*/
+});
 
 
 
-var fileServer = new stat.Server('./');
+/*var fileServer = new stat.Server('./');
 
 app.listen(8080);
 
@@ -33,15 +42,15 @@ function handler (request, response) {
 
   });
 
-}
+}*/
 
 io.configure(function (){
 
-  io.set('log level', 2);
+  io.set('log level', 0);
 
-  io.set('authorization', function (handshakeData, callback) {
+  /*io.set('authorization', function (handshakeData, callback) {
     callback(null, true); // error first callback style 
-  });
+  });*/
 });
 
 io.sockets.on('connection', function (socket) {
@@ -53,8 +62,6 @@ io.sockets.on('connection', function (socket) {
   });
     
   socket.on('move', function (data) {
-
-    //setInterval(function(){console.log(data);},5000);
         
     socket.broadcast.emit('moving', data);
     

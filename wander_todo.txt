@@ -1,0 +1,35 @@
+WANDER TODO
+
+Fix blinking
+--use different server type? Express, etc?
+--examine socket emits, mess with those
+--look at tutorialzine, bng, etc.
+--hard
+
+Fix end of world
+--if xpos + speed > set_boundaries
+--look at java handbook thing
+--hard
+
+Map speech bubbles to movement
+--make div element to contain speeches
+--make div elements for the bubbles themselves
+--look at tutorialzine for guidance
+--easy
+
+Fix art, make better
+--no caves, mountains, etc.
+--all one level
+--detailed background
+--easy
+
+Map jumps to socket emits
+--one extra variable in the emit data
+--conversion? should be easy
+--easy
+
+change package.json
+
+look up javascript performance stuffs
+
+
