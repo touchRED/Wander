@@ -57,7 +57,9 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('chat', function (data) {
         
-    socket.broadcast.emit('message', data);
+    var id = Math.floor(Math.random()*10+1);
+
+    socket.broadcast.emit('message', {'data':data, 'id':id});
     
   });
     

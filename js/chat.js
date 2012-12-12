@@ -23,6 +23,10 @@ $('#body').keypress(function(event){
 
 socket.on('message', function (data){
 
-	console.log(data);
+	var bubble = $('<h1 class = '+data.id+' >'+data.data+'</h1>').appendTo('#bubbles');
+	setTimeout(function(){
+		$('h1.'+data.id+'').fadeOut();
+		$('h1.'+data.id+'').css('display:none');
+	},2000);
 
 });

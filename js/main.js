@@ -3,7 +3,7 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
 var bgImage = new Image();
-bgImage.src = 'img/wander_flat.png'
+bgImage.src = 'img/wander_final.png'
 //time
 var then = Date.now();
 //canvas height
@@ -42,24 +42,20 @@ var render = function () {
 	ctx.fillRect(window.innerWidth/2,282,50,50);
 
 	//socket.on('moving', player);
-	
-	var square_x;
-
-	//console.log(square_x);
-	
-	ctx.fillRect(square_x,282,50,50);
 };
 
-var player = function (x_spot){
+var player = function (x_spot,y_spot){
 	var x_pos = x_spot;
+	var y_pos = y_spot;
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(x_pos,282,50,50);
+	ctx.fillRect(x_pos,y_pos,50,50);
 }
 
 socket.on('moving', function (data){
 	ctx.fillStyle = "#000000";
 	var sqr_x = (data.x * -1) + (320+hero.x);
-	player(sqr_x);
+	var sqr_y = (data.y * -1) + hero.y + 282;
+	player(sqr_x,sqr_y);
 	//render.square_x = sqr_x;
 	//ctx.fillRect(sqr_x,282,50,50);
 	//clear();
@@ -82,7 +78,7 @@ var main = function () {
 
 	then = now;
 
-	socket.emit('move', {'x': hero.x, "y": hero.y});
+	socket.emit('move', {'x': hero.x, 'y': hero.y});
 
 	//console.log(hero.x,",",hero.y);
 };

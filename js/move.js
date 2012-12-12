@@ -46,7 +46,7 @@ function update(modifier){
 	 hero.x -= hero.speed*modifier;
 	}
 
-	//socket.emit('move', {'x': hero.x, "y": hero.y});
+	//socket.emit('move', {'x': hero.x, 'y': hero.y});
 }
 
 /*socket.on('moving', function (data){
