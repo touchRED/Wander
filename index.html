@@ -8,6 +8,16 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body id = "body">
+	<div id = "howto">
+		<p>Welcome to</p>
+		<h1>Wander</h1>
+		<p>How to play:</p>
+		<br>
+		<p>Use the arrow keys to move around, and press the up arrow once to jump. Just start typing and press enter to chat. Seriously though,</p>
+		<h1>that's it.</h1>
+		<p>Click to play!</p>
+		<p>Made by <a href = 'http://furblesmith.koding.com'>Connor Trotter</a></p>
+	</div>
 	<div id = 'bubbles'>
 	</div>
 	<input type="text" name="message">
@@ -21,7 +31,12 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		//$('input').fadeOut();
+		$('#howto').fadeIn('slow');
 		$('input').focus();
+		$(document).click(function(){
+			$('#howto').fadeOut('slow');
+			$('input').focus();
+		});
 	});
 	</script>
 </body>
