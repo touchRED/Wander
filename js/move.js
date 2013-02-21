@@ -6,8 +6,6 @@ var keysDown = {};
 
 var height;
 
-var socket = io.connect('http://localhost:8080/');
-
 addEventListener("keydown", function (e) {
 	keysDown[e.keyCode] = true;
 	switch(e.keyCode){
@@ -36,17 +34,45 @@ function update(modifier){
 		//keyisUp = false;
 	}*/
 
-	if(hero.y > height){
+	if (hero.y > height) {
 		hero.y = hero.y - 6;
 	}
 	if (37 in keysDown) { // Player holding left
-	 hero.x += hero.speed*modifier;
+		if (hero.x + hero.speed*modifier > 5){ // if player is at left side of map
+			if(hero.squarex - hero.speed*modifier < 0){ // if player cube is at left side of screen
+				hero.squarex -= 0;
+			}
+			else{
+				hero.squarex -= hero.speed*modifier;
+			}
+		}
+		else{
+			if (hero.squarex > window.innerWidth/2){ // if player is not at center
+				hero.squarex -= (hero.speed)*modifier;
+			}
+			else{
+				hero.x += hero.speed*modifier;
+			}
+		}
 	}
 	if (39 in keysDown) { // Player holding right
-	 hero.x -= hero.speed*modifier;
+		if (hero.x - hero.speed*modifier < -1560){ // if player is at right side of map
+			if(hero.squarex + hero.speed*modifier > (window.innerWidth - 45)){ // if player cube is at right side of screen
+				hero.squarex += 0;
+			}
+			else{
+				hero.squarex += hero.speed*modifier;
+			}
+		}
+		else{
+			if (hero.squarex < window.innerWidth/2){ // if player cube is at right side of screen
+				hero.squarex += (hero.speed)*modifier;
+			}
+			else{
+				hero.x -= hero.speed*modifier;
+			}
+		}
 	}
-
-	//socket.emit('move', {'x': hero.x, 'y': hero.y});
 }
 
 /*socket.on('moving', function (data){

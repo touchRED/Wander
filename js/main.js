@@ -12,8 +12,12 @@ var hero = {
 	speed: 400,
 	x:-800,
 	y:-195,
-	jspeed: 4
+	jspeed: 4,
+	squarex: window.innerWidth/2
 };
+
+var last_sqr_x = 0;
+var last_sqr_y = 0;
 
 var keyisUp;
 
@@ -39,16 +43,22 @@ var socket = io.connect('http://localhost:8080/');
 var render = function () {
 	ctx.drawImage(bgImage, hero.x, hero.y);
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(window.innerWidth/2,282,50,50);
+	ctx.fillRect(hero.squarex,282,50,50);
 
 	//socket.on('moving', player);
-};
+}
 
 var player = function (x_spot,y_spot){
-	var x_pos = x_spot;
-	var y_pos = y_spot;
-	ctx.fillStyle = "#000000";
-	ctx.fillRect(x_pos,y_pos,50,50);
+	if (last_sqr_x != x_spot || last_sqr_y != y_spot){
+		ctx.fillStyle = "#000000";
+		ctx.fillRect(x_spot,y_spot,50,50);
+		last_sqr_x = x_spot;
+		last_sqr_y = y_spot;
+	}
+	else{
+		ctx.fillStyle = "#000000";
+		ctx.fillRect(last_sqr_x,last_sqr_y,50,50);
+	}
 }
 
 socket.on('moving', function (data){

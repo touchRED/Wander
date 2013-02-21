@@ -13,7 +13,7 @@ $('#body').keypress(function(event){
 		$('p#said').fadeIn();
 		setTimeout(function(){
 			$('p#said').fadeOut();
-		},4000);
+		},6000);
 	}
 	else{
 		$('input').fadeIn();
@@ -27,6 +27,6 @@ socket.on('message', function (data){
 	setTimeout(function(){
 		$('h1.'+data.id+'').fadeOut();
 		$('h1.'+data.id+'').css('display:none');
-	},2000);
+	},6000);
 
 });
